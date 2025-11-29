@@ -20,7 +20,7 @@ export const UsersTable = () => {
     setLoading(true);
     setError(null);
     try {
-      const { data } = await api.get(`/users?page=${pageNum}&limit=10&search=${searchTerm}`);
+      const { data } = await api.get(`${BACKEND_URL}/users?page=${pageNum}&limit=10&search=${searchTerm}`);
       setUsers(data.users);
       setTotal(data.total);
       setPages(data.pages);
@@ -41,7 +41,7 @@ export const UsersTable = () => {
   const deleteUser = async (id: string) => {
     if (!confirm('Delete this user?')) return;
     try {
-      await api.delete(`/users/${id}`);
+      await api.delete(`${BACKEND_URL}/users/${id}`);
       fetchUsers(page, search);
     } catch (e) {
       alert('Delete failed');

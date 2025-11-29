@@ -4,11 +4,12 @@ import { UsersTable } from '../components/users/UsersTable';
 import { UserDashboard } from './UserDashboard';
 
 export const Dashboard = () => {
+  const BACKEND_URL = (import.meta.env.VITE_BACKEND_URL as string) || 'http://localhost:5000';
   const [role, setRole] = useState<'admin' | 'user'>('user');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get('/users/me').then(res => {
+    api.get(`${BACKEND_URL}/users/me`).then(res => {
       setRole(res.data.user.role as 'admin' | 'user');
     }).finally(() => setLoading(false));
   }, []);

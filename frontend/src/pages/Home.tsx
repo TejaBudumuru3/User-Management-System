@@ -5,6 +5,7 @@ import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Cards';
 
 export const Home = () => {
+  const BACKEND_URL = (import.meta.env.VITE_BACKEND_URL as string) || 'http://localhost:5000';
   const [stats, setStats] = useState({ totalUsers: 0, totalCities: 0 });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export const Home = () => {
     const token = localStorage.getItem('accessToken');
     setIsLoggedIn(!!token);
 
-    api.get('/users/stats').then(res => {
+    api.get(`${BACKEND_URL}/users/stats`).then(res => {
       setStats(res.data);
     }).catch(() => {});
   }, []);

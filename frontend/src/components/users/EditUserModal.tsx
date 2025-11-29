@@ -11,6 +11,7 @@ interface Props {
 }
 
 export const EditUserModal = ({ user, onClose, onUpdate }: Props) => {
+  const BACKEND_URL = (import.meta.env.VITE_BACKEND_URL as string) || 'http://localhost:5000';
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -44,7 +45,7 @@ export const EditUserModal = ({ user, onClose, onUpdate }: Props) => {
     setError('');
     
     try {
-      const { data } = await api.put(`/users/${user?._id}`, formData);
+      const { data } = await api.put(`${BACKEND_URL}/users/${user?._id}`, formData);
       onUpdate(data.user); 
       window.location.reload() 
     } catch (err: any) {

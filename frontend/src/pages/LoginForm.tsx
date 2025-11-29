@@ -6,6 +6,7 @@ import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
 
 export const Login = () => {
+  const BACKEND_URL = (import.meta.env.VITE_BACKEND_URL as string) || 'http://localhost:5000';
   const [user, setUser] = useState('');        // email or phone
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -19,7 +20,7 @@ export const Login = () => {
     
     try {
       console.log('Login attempt:', user, password);
-      const { data } = await api.post('/auth/login', { user, password });
+      const { data } = await api.post(`${BACKEND_URL}/auth/login`, { user, password });
       localStorage.setItem('accessToken', data.accessToken);
       navigate('/dashboard');
     } catch (err: any) {

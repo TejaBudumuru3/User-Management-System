@@ -7,6 +7,7 @@ import { Input } from '../components/ui/Input';
 import { ImageUpload } from '../components/ui/ImageUpload';
 
 const Register = () => {
+  const BACKEND_URL = (import.meta.env.VITE_BACKEND_URL as string) || 'http://localhost:5000';
   const [formData, setFormData] = useState({
     name: '', email: '', phone: '', password: '', city: '', state: '', country: 'India', pincode: ''
   });
@@ -25,7 +26,7 @@ const Register = () => {
     if (profileImage) data.append('profileImage', profileImage);
 
     try {
-      await api.post('/auth/register', data, {
+      await api.post(`${BACKEND_URL}/auth/register`, data, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       navigate('/login');

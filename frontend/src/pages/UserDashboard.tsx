@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { EditUserModal } from '../components/users/EditUserModal';
 
 export const UserDashboard = () => {
+  const BACKEND_URL = (import.meta.env.VITE_BACKEND_URL as string) || 'http://localhost:5000';
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [editingUser, setEditingUser] = useState<User | null>(null);
@@ -25,7 +26,7 @@ export const UserDashboard = () => {
   };
 
   useEffect(() => {
-    api.get('/users/me').then(res => {
+    api.get(`${BACKEND_URL}/users/me`).then(res => {
       setUser(res.data.user);
     }).catch(() => {
       window.location.href = '/login';
