@@ -118,3 +118,9 @@ Thanks for the opportunity to showcase full-stack skills!
 **Author:** [Budumuru Srinivas Sai Saran Teja]  
 **Location:** Visakhapatnam, Andhra Pradesh  
 **GitHub:** [https://github.com/YOURUSERNAME](https://github.com/TejaBudumuru3/)
+
+## 📚 Documentation
+- [Postman Guide](postman.md)
+- [Database Schema](ER-DIAGRAM.md)  
+- [Architecture](ARCHITECTURE.md)
+- [Full Docs](Document.md)
