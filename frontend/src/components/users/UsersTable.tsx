@@ -6,6 +6,7 @@ import { EditUserModal } from './EditUserModal';
 import { Link } from 'react-router-dom';
 
 export const UsersTable = () => {
+  const BACKEND_URL = (import.meta.env.VITE_BACKEND_URL as string) || 'http://localhost:5000';
   const [users, setUsers] = useState<User[]>([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
@@ -111,7 +112,7 @@ export const UsersTable = () => {
                 <td className="px-6 py-4">
                   {user.profileImage ? (
                     <img
-                      src={`http://localhost:3000${user.profileImage}`}
+                      src={`${BACKEND_URL}${user.profileImage}`}
                       alt={`${user.name}'s profile`}
                       className="w-12 h-12 rounded-full object-cover ring-2 ring-gray-200"
                     />

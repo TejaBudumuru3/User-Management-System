@@ -1,24 +1,7 @@
 
 .history/
-backend/uploads/1764319203615-ainifinty-download-1761300148681.png
-backend/uploads/1764319552130-Gemini_Generated_Image_3m3fep3m3fep3m3f.png
-backend/uploads/1764342786748-ainifinty-download-1761300148681.png
-backend/uploads/1764348997650-ainifinty-download-1761300148681.png
-backend/uploads/1764348988298-ainifinty-download-1761300148681.png
-backend/uploads/1764349003724-ainifinty-download-1761300148681.png
-backend/uploads/1764349030656-ainifinty-download-1761300148681.png
-backend/uploads/1764349052497-ainifinty-download-1761300148681.png
-backend/uploads/1764350282343-ainifinty-download-1761300148681.png
-backend/uploads/1764350286196-ainifinty-download-1761300148681.png
-backend/uploads/1764350341546-ainifinty-download-1761300148681.png
-backend/uploads/1764350352750-ainifinty-download-1761300148681.png
-backend/uploads/1764355497456-1764319552130-Gemini_Generated_Image_3m3fep3m3fep3m3f.png
-backend/uploads/1764355524495-1764319552130-Gemini_Generated_Image_3m3fep3m3fep3m3f.png
-backend/uploads/1764355632303-1764319552130-Gemini_Generated_Image_3m3fep3m3fep3m3f.png
-backend/uploads/1764355643182-1764319552130-Gemini_Generated_Image_3m3fep3m3fep3m3f.png
-backend/uploads/1764355649880-1764319552130-Gemini_Generated_Image_3m3fep3m3fep3m3f.png
-backend/uploads/1764363701215-ainifinty-download-1761300148681.png
 backend/uploads/
 backend/dist/
 backend/node_modules/
 frontend/node_modules/
+.env
