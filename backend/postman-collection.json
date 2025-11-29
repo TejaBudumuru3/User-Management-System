@@ -1,0 +1,49 @@
+{
+  "info": {
+    "name": "User Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Register",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\"name\":\"Test User\",\"email\":\"test@test.com\",\"phone\":\"9876543210\",\"password\":\"Pass123\",\"address\":\"Test Addr\",\"state\":\"AP\",\"city\":\"Vizag\",\"country\":\"India\",\"pincode\":\"530001\"}" }
+      },
+      "url": "{{baseUrl}}/api/auth/register"
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\"user\":\"test@test.com\",\"password\":\"Pass123\"}" }
+      },
+      "url": "{{baseUrl}}/api/auth/login"
+    },
+    {
+      "name": "Get Users (Admin)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+        ]
+      },
+      "url": "{{baseUrl}}/api/users"
+    },
+    {
+      "name": "Get User",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }]
+      },
+      "url": "{{baseUrl}}/api/users/{{userId}}"
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000" },
+    { "key": "accessToken", "value": "" },
+    { "key": "userId", "value": "" }
+  ]
+}
