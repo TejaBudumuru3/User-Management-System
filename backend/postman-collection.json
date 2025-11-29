@@ -1,49 +1,248 @@
 {
   "info": {
-    "name": "User Management API",
+    "_postman_id": "harvee-user-mgmt-2025",
+    "name": "🚀 Harvee User Management API",
+    "description": "Complete Postman collection for Harvee Designs FSD Internship Task\n\n**Usage:**\n1. Set `baseUrl` variable (local: http://localhost:3000/api)\n2. Register → Login (auto-saves token)\n3. Test all endpoints\n\n**Production:** https://your-api.onrender.com/api",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
-      "name": "Register",
-      "request": {
-        "method": "POST",
-        "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "body": { "mode": "raw", "raw": "{\"name\":\"Test User\",\"email\":\"test@test.com\",\"phone\":\"9876543210\",\"password\":\"Pass123\",\"address\":\"Test Addr\",\"state\":\"AP\",\"city\":\"Vizag\",\"country\":\"India\",\"pincode\":\"530001\"}" }
-      },
-      "url": "{{baseUrl}}/api/auth/register"
+      "name": "🔐 Authentication",
+      "item": [
+        {
+          "name": "📝 Register New User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"phone\": \"9876543210\",\n  \"password\": \"Password@123\",\n  \"city\": \"Visakhapatnam\",\n  \"state\": \"Andhra Pradesh\",\n  \"country\": \"India\",\n  \"pincode\": \"530001\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "🔑 Login (Auto-save Token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Login successful\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const jsonData = pm.response.json();",
+                  "pm.test(\"Has accessToken\", function () {",
+                  "    pm.expect(jsonData).to.have.property('accessToken');",
+                  "});",
+                  "",
+                  "// Auto-save token for next requests",
+                  "pm.environment.set(\"accessToken\", jsonData.accessToken);",
+                  "pm.environment.set(\"userId\", jsonData.user?._id || \"\");",
+                  "console.log('✅ Token saved:', jsonData.accessToken?.substring(0, 20) + '...');"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user\": \"john.doe@example.com\",\n  \"password\": \"Password@123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        }
+      ]
     },
     {
-      "name": "Login",
-      "request": {
-        "method": "POST",
-        "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "body": { "mode": "raw", "raw": "{\"user\":\"test@test.com\",\"password\":\"Pass123\"}" }
-      },
-      "url": "{{baseUrl}}/api/auth/login"
+      "name": "📊 Public Endpoints",
+      "item": [
+        {
+          "name": "📈 Get Public Stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "stats"]
+            }
+          }
+        }
+      ]
     },
     {
-      "name": "Get Users (Admin)",
-      "request": {
-        "method": "GET",
-        "header": [
-          { "key": "Authorization", "value": "Bearer {{accessToken}}" }
-        ]
-      },
-      "url": "{{baseUrl}}/api/users"
+      "name": "👤 User Endpoints",
+      "item": [
+        {
+          "name": "👤 Get Current User (/me)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "me"]
+            }
+          }
+        }
+      ]
     },
     {
-      "name": "Get User",
-      "request": {
-        "method": "GET",
-        "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }]
-      },
-      "url": "{{baseUrl}}/api/users/{{userId}}"
+      "name": "👨‍💼 Admin Endpoints",
+      "description": "✅ Create Admin user first or login as admin\n**Note:** Replace {{userId}} with actual user ID from /users/me or /users",
+      "item": [
+        {
+          "name": "📋 Get All Users (Pagination)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users?page=1&limit=10&search=John",
+              "host": ["{{baseUrl}}"],
+              "path": ["users"],
+              "query": [
+                {"key": "page", "value": "1"},
+                {"key": "limit", "value": "10"},
+                {"key": "search", "value": "John"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "✏️ Update User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Updated\",\n  \"email\": \"john.updated@example.com\",\n  \"phone\": \"9876543211\",\n  \"city\": \"Hyderabad\",\n  \"pincode\": \"500001\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}"]
+            }
+          }
+        },
+        {
+          "name": "🗑️ Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}"]
+            }
+          }
+        }
+      ]
     }
   ],
   "variable": [
-    { "key": "baseUrl", "value": "http://localhost:5000" },
-    { "key": "accessToken", "value": "" },
-    { "key": "userId", "value": "" }
+    {
+      "key": "baseUrl",
+      "value": "https://user-management-system-7zlz.onrender.com/api",
+      "description": "Backend API base URL\nLocal: https://user-management-system-7zlz.onrender.com/api"
+    },
+    {
+      "key": "accessToken",
+      "value": "",
+      "description": "JWT token (auto-set after login)"
+    },
+    {
+      "key": "userId",
+      "value": "",
+      "description": "User ID for update/delete (auto-set after login)"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{accessToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "exec": [
+          "console.log('Testing against:', pm.environment.get('baseUrl'));",
+          "console.log('Token ready:', pm.environment.get('accessToken') ? '✅' : '❌');"
+        ],
+        "type": "text/javascript"
+      }
+    }
   ]
 }
